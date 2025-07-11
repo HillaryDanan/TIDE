@@ -109,3 +109,8 @@ Hillary Danan - [GitHub](https://github.com/HillaryDanan)
 🚀 **[Try the Interactive TIDE Tool](https://hillarydanan.github.io/TIDE/tide_interactive.html)**
 
 Explore how different cognitive architectures organize self-representation and temporal processing in real-time.
+
+
+## Research Journey
+
+This work represents the culmination of a research trajectory exploring information processing and cognitive architectures. See the [meta-repository overview](meta-repository.md) for the complete research journey from BIND through TIDE.
