@@ -2,7 +2,7 @@
 
 ## Overview
 
-TIDE (Temporal-Internal Dimensional Encoding) represents a paradigm shift in understanding cognitive architectures through the lens of dimensional organization. Based on empirical neuroscience findings from autism research, TIDE demonstrates how different cognitive systems achieve information integration through distinct arrangements of self-representation and temporal processing.
+TIDE (Temporal-Internal Dimensional Encoding) represents a shift in understanding cognitive architectures through the lens of dimensional organization. Based on empirical neuroscience findings from autism research, TIDE demonstrates how different cognitive systems achieve information integration through distinct arrangements of self-representation and temporal processing.
 
 ## Core Insight
 
