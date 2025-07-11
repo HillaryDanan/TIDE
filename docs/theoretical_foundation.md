@@ -131,3 +131,10 @@ Levinson, H. J. (2021). *The Neural Representation of Abstract Concepts in Typic
 ---
 
 *"Cognitive diversity is not a bug to be fixed, but a feature to be understood and leveraged."*
+
+
+## A Note on Terminology
+
+Throughout this document, I use terms like "neurotypical," "ASD," and "ADHD" as shorthand for cognitive patterns, not as rigid diagnostic categories. These labels are useful for communication but should not be taken as fixed or limiting. Every individual employs multiple cognitive strategies, and these patterns exist on continuums rather than in discrete boxes.
+
+The beauty of TIDE is that it reframes these patterns as different architectural solutions - like different programming paradigms that excel at different tasks. None is inherently better or worse; they're simply different approaches to organizing information.

@@ -114,3 +114,10 @@ Explore how different cognitive architectures organize self-representation and t
 ## Research Journey
 
 This work represents the culmination of a research trajectory exploring information processing and cognitive architectures. See the [meta-repository overview](meta-repository.md) for the complete research journey from BIND through TIDE.
+
+
+## Important Note on Terminology
+
+I use diagnostic labels (NT, ASD, ADHD) throughout this framework as communication tools, not because I believe in rigid categorization. These terms represent observable patterns in cognitive organization, not fixed identities or disorders. See [DISCLAIMER.md](DISCLAIMER.md) for my full thoughts on labels and cognitive diversity.
+
+TIDE demonstrates that different cognitive patterns are simply different solutions to the same challenges - each with unique strengths. The framework itself embodies the dynamic, fluid nature of cognition (hence "TIDE" - patterns that ebb and flow).
