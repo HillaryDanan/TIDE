@@ -1,5 +1,8 @@
 # TIDE: Temporal-Internal Dimensional Encoding
 
+> Part of the [Cognitive Architectures for AI](https://github.com/HillaryDanan/cognitive-architectures-ai) research program
+
+
 A neuroscience-inspired framework for understanding cognitive architecture patterns through dimensional organization of self-representation and temporal processing.
 
 ## Overview
