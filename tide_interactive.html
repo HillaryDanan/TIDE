@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIDE: Temporal-Internal Dimensional Encoding Interactive Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5, #00d2ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .architecture-selector {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .arch-button {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .arch-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .arch-button.active {
+            background: rgba(58, 123, 213, 0.3);
+            border-color: #3a7bd5;
+            box-shadow: 0 0 20px rgba(58, 123, 213, 0.5);
+        }
+        
+        .visualization-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .visualization-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .viz-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .viz-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .viz-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #00d2ff;
+        }
+        
+        #dimensionalSpace {
+            position: relative;
+            height: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .dimension-axis {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .axis-x {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            top: 50%;
+        }
+        
+        .axis-y {
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+        }
+        
+        .axis-label {
+            position: absolute;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .element-node {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .element-node:hover {
+            transform: scale(1.2);
+            z-index: 10;
+        }
+        
+        .self-node {
+            background: radial-gradient(circle, #ff006e, #8b0039);
+        }
+        
+        .time-node {
+            background: radial-gradient(circle, #3a7bd5, #1a3a6e);
+        }
+        
+        .emotion-node {
+            background: radial-gradient(circle, #ff4757, #c41e3a);
+        }
+        
+        .logic-node {
+            background: radial-gradient(circle, #2ed573, #0f6938);
+        }
+        
+        #integrationMeter {
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .integration-visual {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #3a7bd5, #00d2ff, #3a7bd5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: rotate 4s linear infinite;
+            position: relative;
+        }
+        
+        .integration-value {
+            position: absolute;
+            font-size: 3rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .integration-inner {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #1a1a2e;
+        }
+        
+        #temporalPlanning {
+            min-height: 300px;
+        }
+        
+        .planning-timeline {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+        
+        .day-column {
+            min-width: 120px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .day-column:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .day-header {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #00d2ff;
+        }
+        
+        .activity {
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            background: rgba(58, 123, 213, 0.3);
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .activity:hover {
+            background: rgba(58, 123, 213, 0.5);
+            transform: translateX(5px);
+        }
+        
+        #behaviorMetrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .metric-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .metric-box:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00d2ff;
+        }
+        
+        .info-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TIDE Framework</h1>
+            <div class="subtitle">Temporal-Internal Dimensional Encoding</div>
+            <div class="subtitle">Cognitive Architecture Patterns from Neurodiversity Insights</div>
+        </header>
+        
+        <div class="architecture-selector">
+            <button class="arch-button active" data-arch="NT">
+                <div>Neurotypical (NT)</div>
+                <small>Dynamic Balance</small>
+            </button>
+            <button class="arch-button" data-arch="ASD">
+                <div>ASD</div>
+                <small>Systematic Alignment</small>
+            </button>
+            <button class="arch-button" data-arch="ADHD">
+                <div>ADHD</div>
+                <small>Unified Intensity</small>
+            </button>
+        </div>
+        
+        <div class="visualization-grid">
+            <div class="viz-card">
+                <h2 class="viz-title">Dimensional Mapping</h2>
+                <div id="dimensionalSpace">
+                    <div class="dimension-axis axis-x"></div>
+                    <div class="dimension-axis axis-y"></div>
+                    <div class="axis-label" style="bottom: 10px; left: 10px;">Internal</div>
+                    <div class="axis-label" style="bottom: 10px; right: 10px;">External</div>
+                    <div class="element-node self-node" id="selfNode">Self</div>
+                    <div class="element-node time-node" id="timeNode">Time</div>
+                    <div class="element-node emotion-node" id="emotionNode">Emotion</div>
+                    <div class="element-node logic-node" id="logicNode">Logic</div>
+                </div>
+            </div>
+            
+            <div class="viz-card">
+                <h2 class="viz-title">Self-Time Integration</h2>
+                <div id="integrationMeter">
+                    <div class="integration-visual pulse">
+                        <div class="integration-value" id="integrationValue">0.75</div>
+                        <div class="integration-inner"></div>
+                    </div>
+                    <div style="margin-top: 1rem; text-align: center;">
+                        <div id="integrationLabel">Dynamic Integration</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="viz-card">
+                <h2 class="viz-title">Temporal Planning Pattern</h2>
+                <div id="temporalPlanning">
+                    <div class="planning-timeline" id="planningTimeline">
+                        <!-- Days will be inserted here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="viz-card">
+                <h2 class="viz-title">Behavioral Metrics</h2>
+                <div id="behaviorMetrics">
+                    <div class="metric-box">
+                        <div class="metric-label">Planning Horizon</div>
+                        <div class="metric-value" id="planningHorizon">30d</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Temporal Consistency</div>
+                        <div class="metric-value" id="temporalConsistency">60%</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Processing Flexibility</div>
+                        <div class="metric-value" id="processingFlexibility">80%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <h2 style="margin-bottom: 1rem;">About TIDE</h2>
+            <p id="architectureDescription">
+                The Neurotypical (NT) architecture achieves information integration through dynamic balance 
+                between internal self-representation and external temporal processing. This creates flexible, 
+                adaptive behavior with moderate planning horizons and the ability to adjust to changing contexts.
+            </p>
+            <p style="margin-top: 1rem; opacity: 0.7;">
+                Based on empirical findings from autism research showing alternative neural pathways for 
+                abstract concept processing (Levinson, 2021).
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Architecture configurations
+        const architectures = {
+            NT: {
+                name: 'Neurotypical',
+                description: 'The Neurotypical (NT) architecture achieves information integration through dynamic balance between internal self-representation and external temporal processing. This creates flexible, adaptive behavior with moderate planning horizons and the ability to adjust to changing contexts.',
+                elements: {
+                    self: { internal: 0.8, external: 0.2 },
+                    time: { internal: 0.2, external: 0.8 },
+                    emotion: { internal: 0.9, external: 0.1 },
+                    logic: { internal: 0.1, external: 0.9 }
+                },
+                integration: {
+                    value: 0.75,
+                    style: 'Dynamic Integration',
+                    stability: 0.6
+                },
+                metrics: {
+                    planningHorizon: 30,
+                    temporalConsistency: 0.6,
+                    processingFlexibility: 0.8
+                },
+                planning: {
+                    Monday: ['work', 'exercise', 'rest', '*flexible*'],
+                    Tuesday: ['work', 'creative', 'social', '*flexible*'],
+                    Wednesday: ['work', 'chores', 'rest', '*flexible*'],
+                    Thursday: ['work', 'exercise', 'creative', '*flexible*'],
+                    Friday: ['work', 'social', 'rest', '*flexible*']
+                }
+            },
+            ASD: {
+                name: 'ASD',
+                description: 'The ASD architecture achieves integration through systematic alignment, with both self and time in the external dimension. This creates highly consistent, structured behavior with extended planning horizons and strong adherence to patterns.',
+                elements: {
+                    self: { internal: 0.2, external: 0.8 },
+                    time: { internal: 0.1, external: 0.9 },
+                    emotion: { internal: 0.9, external: 0.1 },
+                    logic: { internal: 0.0, external: 1.0 }
+                },
+                integration: {
+                    value: 0.9,
+                    style: 'Crystallized Lock',
+                    stability: 0.9
+                },
+                metrics: {
+                    planningHorizon: 90,
+                    temporalConsistency: 0.9,
+                    processingFlexibility: 0.3
+                },
+                planning: {
+                    Monday: ['9:00-work', '12:00-lunch', '14:00-exercise', '18:00-rest', '20:00-creative'],
+                    Tuesday: ['9:00-work', '12:00-lunch', '14:00-chores', '18:00-social', '20:00-rest'],
+                    Wednesday: ['9:00-work', '12:00-lunch', '14:00-creative', '18:00-exercise', '20:00-rest'],
+                    Thursday: ['9:00-work', '12:00-lunch', '14:00-exercise', '18:00-rest', '20:00-creative'],
+                    Friday: ['9:00-work', '12:00-lunch', '14:00-chores', '18:00-social', '20:00-rest']
+                }
+            },
+            ADHD: {
+                name: 'ADHD',
+                description: 'The ADHD architecture features unified but unstable integration in the internal dimension. Both self and time collapse to the immediate present, creating intense but short-duration focus with minimal planning horizons.',
+                elements: {
+                    self: { internal: 0.9, external: 0.1 },
+                    time: { internal: 0.8, external: 0.2 },
+                    emotion: { internal: 1.0, external: 0.0 },
+                    logic: { internal: 0.2, external: 0.8 }
+                },
+                integration: {
+                    value: 0.5,
+                    style: 'Quantum Collapse',
+                    stability: 0.2
+                },
+                metrics: {
+                    planningHorizon: 1,
+                    temporalConsistency: 0.2,
+                    processingFlexibility: 0.9
+                },
+                planning: {
+                    TODAY: ['NOW: work', 'Maybe: exercise', 'If time: social'],
+                    Tomorrow: ['probably something', 'will figure it out'],
+                    'Day After': ['???', 'whatever'],
+                    Later: ['too far away', 'cant think about it'],
+                    Someday: ['exists?', 'maybe']
+                }
+            }
+        };
+        
+        let currentArchitecture = 'NT';
+        let integrationAnimation = null;
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateVisualization('NT');
+            setupEventListeners();
+            animateIntegration();
+        });
+        
+        function setupEventListeners() {
+            document.querySelectorAll('.arch-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const arch = e.currentTarget.dataset.arch;
+                    
+                    // Update active button
+                    document.querySelectorAll('.arch-button').forEach(b => b.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    
+                    // Update visualization
+                    updateVisualization(arch);
+                });
+            });
+        }
+        
+        function updateVisualization(arch) {
+            currentArchitecture = arch;
+            const config = architectures[arch];
+            
+            // Update dimensional positions
+            updateElementPositions(config.elements);
+            
+            // Update integration meter
+            updateIntegration(config.integration);
+            
+            // Update temporal planning
+            updateTemporalPlanning(config.planning);
+            
+            // Update metrics
+            updateMetrics(config.metrics);
+            
+            // Update description
+            document.getElementById('architectureDescription').textContent = config.description;
+        }
+        
+        function updateElementPositions(elements) {
+            const space = document.getElementById('dimensionalSpace');
+            const rect = space.getBoundingClientRect();
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            Object.entries(elements).forEach(([element, position]) => {
+                const node = document.getElementById(element + 'Node');
+                if (node) {
+                    const x = centerX + (position.external - 0.5) * rect.width * 0.8;
+                    const y = centerY - (position.internal - 0.5) * rect.height * 0.8;
+                    
+                    node.style.left = (x - 40) + 'px';
+                    node.style.top = (y - 40) + 'px';
+                }
+            });
+        }
+        
+        function updateIntegration(integration) {
+            document.getElementById('integrationValue').textContent = integration.value.toFixed(2);
+            document.getElementById('integrationLabel').textContent = integration.style;
+            
+            // Update animation based on stability
+            const visual = document.querySelector('.integration-visual');
+            if (integration.stability < 0.3) {
+                visual.style.animationDuration = '2s';
+                visual.classList.add('pulse');
+            } else if (integration.stability > 0.8) {
+                visual.style.animationDuration = '8s';
+                visual.classList.remove('pulse');
+            } else {
+                visual.style.animationDuration = '4s';
+                visual.classList.remove('pulse');
+            }
+        }
+        
+        function updateTemporalPlanning(planning) {
+            const timeline = document.getElementById('planningTimeline');
+            timeline.innerHTML = '';
+            
+            Object.entries(planning).forEach(([day, activities]) => {
+                const dayColumn = document.createElement('div');
+                dayColumn.className = 'day-column';
+                
+                const header = document.createElement('div');
+                header.className = 'day-header';
+                header.textContent = day;
+                dayColumn.appendChild(header);
+                
+                activities.forEach(activity => {
+                    const actDiv = document.createElement('div');
+                    actDiv.className = 'activity';
+                    actDiv.textContent = activity;
+                    dayColumn.appendChild(actDiv);
+                });
+                
+                timeline.appendChild(dayColumn);
+            });
+        }
+        
+        function updateMetrics(metrics) {
+            document.getElementById('planningHorizon').textContent = metrics.planningHorizon + 'd';
+            document.getElementById('temporalConsistency').textContent = Math.round(metrics.temporalConsistency * 100) + '%';
+            document.getElementById('processingFlexibility').textContent = Math.round(metrics.processingFlexibility * 100) + '%';
+        }
+        
+        function animateIntegration() {
+            if (integrationAnimation) {
+                cancelAnimationFrame(integrationAnimation);
+            }
+            
+            let time = 0;
+            function animate() {
+                time += 0.02;
+                const config = architectures[currentArchitecture];
+                
+                // Add noise based on architecture
+                let noise = 0;
+                if (currentArchitecture === 'ADHD') {
+                    noise = Math.sin(time * 5) * 0.2 + Math.sin(time * 13) * 0.1;
+                } else if (currentArchitecture === 'NT') {
+                    noise = Math.sin(time * 2) * 0.05;
+                }
+                
+                const value = Math.max(0, Math.min(1, config.integration.value + noise));
+                document.getElementById('integrationValue').textContent = value.toFixed(2);
+                
+                integrationAnimation = requestAnimationFrame(animate);
+            }
+            animate();
+        }
+        
+        // Responsive handling
+        window.addEventListener('resize', () => {
+            const config = architectures[currentArchitecture];
+            updateElementPositions(config.elements);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIDE Framework - Simple View</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #fff;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #00d2ff;
+        }
+        
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .arch-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .arch-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .arch-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #3a7bd5;
+        }
+        
+        .dimension-info {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+        
+        .metric-value {
+            color: #00d2ff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>TIDE: Cognitive Architecture Patterns</h1>
+    
+    <div class="arch-grid">
+        <div class="arch-card">
+            <h2 class="arch-title">Neurotypical (NT)</h2>
+            <div class="dimension-info">
+                <div><strong>Self:</strong> Internal dimension</div>
+                <div><strong>Time:</strong> External dimension</div>
+            </div>
+            <div class="metric">
+                <span>Planning Horizon:</span>
+                <span class="metric-value">30 days</span>
+            </div>
+            <div class="metric">
+                <span>Temporal Consistency:</span>
+                <span class="metric-value">60%</span>
+            </div>
+            <div class="metric">
+                <span>Integration Style:</span>
+                <span class="metric-value">Dynamic</span>
+            </div>
+        </div>
+        
+        <div class="arch-card">
+            <h2 class="arch-title">ASD</h2>
+            <div class="dimension-info">
+                <div><strong>Self:</strong> External dimension</div>
+                <div><strong>Time:</strong> External dimension</div>
+            </div>
+            <div class="metric">
+                <span>Planning Horizon:</span>
+                <span class="metric-value">90 days</span>
+            </div>
+            <div class="metric">
+                <span>Temporal Consistency:</span>
+                <span class="metric-value">90%</span>
+            </div>
+            <div class="metric">
+                <span>Integration Style:</span>
+                <span class="metric-value">Crystallized</span>
+            </div>
+        </div>
+        
+        <div class="arch-card">
+            <h2 class="arch-title">ADHD</h2>
+            <div class="dimension-info">
+                <div><strong>Self:</strong> Internal dimension</div>
+                <div><strong>Time:</strong> Internal dimension</div>
+            </div>
+            <div class="metric">
+                <span>Planning Horizon:</span>
+                <span class="metric-value">1 day</span>
+            </div>
+            <div class="metric">
+                <span>Temporal Consistency:</span>
+                <span class="metric-value">20%</span>
+            </div>
+            <div class="metric">
+                <span>Integration Style:</span>
+                <span class="metric-value">Collapsed</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

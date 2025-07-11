@@ -102,3 +102,10 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## Contact
 
 Hillary Danan - [GitHub](https://github.com/HillaryDanan)
+
+
+## Interactive Demo
+
+🚀 **[Try the Interactive TIDE Tool](https://hillarydanan.github.io/TIDE/tide_interactive.html)**
+
+Explore how different cognitive architectures organize self-representation and temporal processing in real-time.
