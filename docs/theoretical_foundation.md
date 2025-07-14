@@ -21,11 +21,11 @@ My dissertation research revealed that individuals with autism use concrete/exte
 2. **Dimensional reorganization** can achieve equivalent outcomes
 3. **Pathway differences** create observable behavioral patterns
 
-### Key Evidence
+### Key Insights
 
 - **vATL Connectivity**: External network overextension in ASD
 - **Concrete Overflow**: Alternative neural pathways achieving identical outcomes
-- **Behavioral Validation**: Differential patterns in temporal planning tasks
+- **Behavioral Ecological Validation**: Differential patterns in temporal planning tasks
 
 ## Architecture Patterns
 
@@ -55,7 +55,7 @@ How do self and time bind together? TIDE proposes three solutions:
 
 1. **Dynamic Binding** (NT): Oscillating integration allowing flexibility
 2. **Crystallized Binding** (ASD): Lock-and-key integration when dimensions align
-3. **Quantum Binding** (ADHD): Collapsed dimensions create intense but unstable binding
+3. **Quantum Binding** (ADHD): Collapsed dimensions (~metaphorically) create intense but unstable binding
 
 ### Measurement
 
