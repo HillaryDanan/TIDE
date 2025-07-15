@@ -1,6 +1,6 @@
 # A Note on Labels and Cognitive Diversity
 
-## Why I Use These Terms
+## Why Use These Terms
 
 Throughout TIDE, I use terms like "neurotypical," "ASD," and "ADHD." I want to be clear about why I use these labels and what they mean in this context.
 
